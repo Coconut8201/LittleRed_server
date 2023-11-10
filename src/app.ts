@@ -1,4 +1,4 @@
-import express from 'express';
+import express,{Request, Response} from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
@@ -24,9 +24,9 @@ app.get('/',(req,res)=>{
 })
 
 //http://localhost:1212/uploadphoto
-app.post('/uploadphoto',upload.single('image'),(req,res)=>{
-   const imageFile = req.file;
-   if (!imageFile) {
+app.post('/uploadphoto', upload.array('images', 10), (req:Request, res:Response) => {
+   const imageFiles = req.files;
+   if (!imageFiles) {
       res.status(400).send('未收到圖片');
       res.send(`photot save fail`);
    }else{

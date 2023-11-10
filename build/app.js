@@ -23,9 +23,9 @@ app.get('/', (req, res) => {
     res.send('This is back');
 });
 //http://localhost:1212/uploadphoto
-app.post('/uploadphoto', httpReq_1.upload.single('image'), (req, res) => {
-    const imageFile = req.file;
-    if (!imageFile) {
+app.post('/uploadphoto', httpReq_1.upload.array('images', 10), (req, res) => {
+    const imageFiles = req.files;
+    if (!imageFiles) {
         res.status(400).send('未收到圖片');
         res.send(`photot save fail`);
     }
